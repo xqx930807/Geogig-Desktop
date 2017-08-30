@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Tab2, Tabs2 } from "@blueprintjs/core";
 import PropTypes from 'prop-types';
 
-import api from '../../Api/localApi';
 
 class Tab2Comp extends Component {
   constructor(props){
@@ -23,7 +22,7 @@ class Tab2Comp extends Component {
             <Tab2 id="rx" title="Local" panel={<Local data={this.state} />} />
             <Tab2 id="ng" title="Remote" panel={<Remote data={this.state} />} />
               <Tabs2.Expander />
-                <button type="button" className="pt-button pt-minimal pt-icon-add">New</button>
+              <button type="button" className="pt-button pt-intent-success pt-icon-add " >Button</button>
           </Tabs2>
         </div>
       </div>
@@ -39,7 +38,7 @@ const Local = (props) => {
         <tr>
           <th>Name</th>
           <th>Adress</th>
-          <th>Trash</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -48,7 +47,7 @@ const Local = (props) => {
           <tr>
             <td>{e.name}</td>
             <td>{e.href}</td>
-            <td><div className="pt-tag ">Done</div></td>
+            <td><span onClick={() => {console.log('delete => '+ e.name)}} className="pt-icon-standard pt-icon-delete"></span></td>
           </tr>
         )
       }

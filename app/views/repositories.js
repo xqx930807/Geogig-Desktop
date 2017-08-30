@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import {Grid, Row, Col, Clearfix} from 'react-bootstrap'
 import PropTypes from 'prop-types';
-import Navbar from './ui/Navbar.js'
-import Tab2 from './ui/Tab2.js'
+import Navbar from '../components/ui/Navbar';
+import Tab2 from '../components/ui/Tab2';
 
 import '../src/assets/css/App.css';
-import api from '../Api/localApi';
+import api from '../api/geogig-js';
 
 class App extends Component {
 
