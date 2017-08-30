@@ -1,7 +1,13 @@
 import React, { Component } from 'react';
 import { Tab2, Tabs2 } from "@blueprintjs/core";
+import PropTypes from 'prop-types';
+
+import api from '../../Api/localApi';
 
 class Tab2Comp extends Component {
+  componentDidMount(){
+    this.context.store.dispatch(api.loadLocal());
+  }
   render() {
     return (
       <div>
@@ -32,7 +38,7 @@ const Remote: React.SFC<{}> = () => (
       <table className="pt-table pt-interactive">
         <thead>
           <tr>
-            <th>Project</th>
+            <th>Name</th>
             <th>Adress</th>
             <th>Trash</th>
           </tr>
@@ -57,5 +63,8 @@ const Remote: React.SFC<{}> = () => (
       </table>
     </div>
 );
+Tab2Comp.contextTypes = {
+  store: PropTypes.object.isRequired
+};
 
 export default Tab2Comp;
