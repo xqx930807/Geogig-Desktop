@@ -1,4 +1,3 @@
-import loadRepos from '../reducers/local';
 import geogigJS from 'geogig-js'
 //
 let geogig = new geogigJS({
