@@ -1,14 +1,11 @@
 {
   "name": "Geogig-Desktop",
-  "productName": "Geogig Desktop",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Desktop interface for spatial information versioning.",
+  "author": "Janio",
+  "license": "GPL-3.0",
   "main": "main.js",
-  "scripts": {
-    "start": "electron --debug=5858 .",
-    "build:win": "electron-packager ./ Geogig-Desktop --arch=x64 --platform=win32 --version-string.ProductName=\"Geogig Desktop\" --icon=./app/static/favicon.ico "
-
-  },
+  "homepage": "https://github.com/jlanio/Geogig-Desktop",
   "repository": {
     "type": "git",
     "url": "https://github.com/jlanio/Geogig-Desktop.git"
@@ -20,17 +17,40 @@
     "gis",
     "versioning"
   ],
-  "author": "jlanio",
-  "license": "GPL-3.0",
+  "scripts": {
+    "prod": "webpack --config webpack.build.config.js && electron --noDevServer .",
+    "dev": "webpack-dev-server --hot --host 0.0.0.0 --config=./webpack.dev.config.js",
+    "build": "webpack --config webpack.build.config.js",
+    "package": "webpack --config webpack.build.config.js",
+    "postpackage": "electron-packager ./ --out=./builds"
+  },
   "devDependencies": {
-    "electron": "^1.4.1",
-    "electron-packager": "^8.7.1",
-    "electron-winstaller": "^2.6.3",
-    "unzip": "^0.1.11"
+    "babel-core": "^6.24.1",
+    "babel-loader": "^6.4.0",
+    "babel-preset-react": "^6.24.1",
+    "babili-webpack-plugin": "^0.0.11",
+    "css-loader": "^0.28.1",
+    "electron": "^1.6.7",
+    "electron-packager": "^8.7.0",
+    "extract-text-webpack-plugin": "^2.1.0",
+    "file-loader": "^0.11.1",
+    "html-webpack-plugin": "^2.28.0",
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "style-loader": "^0.17.0",
+    "webpack": "^2.5.1",
+    "webpack-dev-server": "^2.4.5"
   },
   "dependencies": {
-    "fs-extra": "^2.0.0",
-    "leaflet": "^1.0.3",
-    "request": "^2.81.0"
+    "@blueprintjs/core": "^1.26.0",
+    "geogig-js": "^0.1.1",
+    "prop-types": "^15.5.10",
+    "react-addons-css-transition-group": "^15.6.0",
+    "react-bootstrap": "^0.31.2",
+    "react-redux": "^5.0.6",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2",
+    "redux": "^3.7.2",
+    "redux-thunk": "^2.2.0"
   }
 }

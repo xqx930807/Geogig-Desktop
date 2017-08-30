@@ -1,6 +1,5 @@
-[Node]
-node_modules
-npm-debug.log*
-[geogig]
-app/static/tmp
-app/static/geogig
+node_modules/
+*npm-debug.log
+*.DS_Store
+dist/
+builds/
