@@ -5,8 +5,15 @@ import PropTypes from 'prop-types';
 import api from '../../Api/localApi';
 
 class Tab2Comp extends Component {
+  constructor(props){
+   super(props);
+   this.state = {repos:[]};
+  }
   componentDidMount(){
-    this.context.store.dispatch(api.loadLocal());
+    this.context.store.subscribe(() => {
+      let getStateREPOS = this.context.store.getState();
+      this.setState(getStateREPOS);
+    })
   }
   render() {
     return (
@@ -24,44 +31,34 @@ class Tab2Comp extends Component {
   }
 }
 const Local: React.SFC<{}> = () => (
-    <div>
-      <br></br>
-      <div className="pt-callout .modifier">
-        <h5>Callout Heading</h5>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ex, delectus!
-      </div>
-    </div>
+  <div>
+    <table className="pt-table pt-interactive">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Adress</th>
+          <th>Trash</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Blueprint</td>
+          <td></td>
+          <td><div className="pt-tag ">Done</div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 );
 
 const Remote: React.SFC<{}> = () => (
-    <div>
-      <table className="pt-table pt-interactive">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Adress</th>
-            <th>Trash</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Blueprint</td>
-            <td></td>
-            <td><div className="pt-tag ">Done</div></td>
-          </tr>
-          <tr>
-            <td>TSLint</td>
-            <td>Static analysis linter for TypeScript</td>
-            <td>TypeScript</td>
-          </tr>
-          <tr>
-            <td>Plottable</td>
-            <td>Composable charting library built on top of D3</td>
-            <td><a className="pt-icon-trash"></a></td>
-          </tr>
-        </tbody>
-      </table>
+  <div>
+    <br></br>
+    <div className="pt-callout .modifier">
+      <h5>Callout Heading</h5>
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ex, delectus!
     </div>
+  </div>
 );
 Tab2Comp.contextTypes = {
   store: PropTypes.object.isRequired

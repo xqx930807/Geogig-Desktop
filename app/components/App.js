@@ -9,6 +9,9 @@ import api from '../Api/localApi';
 
 class App extends Component {
 
+  componentDidMount(){
+    this.context.store.dispatch(api.loadLocal());
+  }
 
   render() {
     return (
