@@ -20,8 +20,8 @@ class Tab2Comp extends Component {
       <div>
         <div className="pt-card pt-elevation-2">
           <Tabs2 id="Tabs2Example" >
-            <Tab2 id="rx" title="Local" panel={<Local />} />
-            <Tab2 id="ng" title="Remote" panel={<Remote />} />
+            <Tab2 id="rx" title="Local" panel={<Local data={this.state} />} />
+            <Tab2 id="ng" title="Remote" panel={<Remote data={this.state} />} />
               <Tabs2.Expander />
                 <button type="button" className="pt-button pt-minimal pt-icon-add">New</button>
           </Tabs2>
@@ -30,7 +30,9 @@ class Tab2Comp extends Component {
     );
   }
 }
-const Local: React.SFC<{}> = () => (
+
+const Local = (props) => {
+  return(
   <div>
     <table className="pt-table pt-interactive">
       <thead>
@@ -41,22 +43,23 @@ const Local: React.SFC<{}> = () => (
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>Blueprint</td>
-          <td></td>
-          <td><div className="pt-tag ">Done</div></td>
-        </tr>
+      {
+        props.data.repos.map(e =>
+          <tr>
+            <td>{e.name}</td>
+            <td>{e.href}</td>
+            <td><div className="pt-tag ">Done</div></td>
+          </tr>
+        )
+      }
       </tbody>
     </table>
   </div>
-);
+)};
 
-const Remote: React.SFC<{}> = () => (
+const Remote = (props) => (
   <div>
-    <br></br>
     <div className="pt-callout .modifier">
-      <h5>Callout Heading</h5>
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ex, delectus!
     </div>
   </div>
 );
