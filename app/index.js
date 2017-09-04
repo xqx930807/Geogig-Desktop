@@ -8,6 +8,7 @@ import {loadRepos} from './reducers/local';
 
 import dashboard from './views/dashboard';
 import repositories from './views/repositories';
+import detail from './views/repositories.detail';
 import connections from './views/connections'
 
 // const reducers = combineReducers({loadRepos});
@@ -19,6 +20,7 @@ ReactDOM.render((
        <Switch>
           <Route exact path="/" component={dashboard} />
             <Route path="/repositories" component={repositories} />
+            <Route path="/detail/:name" component={detail} />
             <Route path="/connections" component={connections} />
         </Switch>
      </HashRouter>

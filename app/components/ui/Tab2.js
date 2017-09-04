@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Tab2, Tabs2 } from "@blueprintjs/core";
 import PropTypes from 'prop-types';
+import {Link} from 'react-router-dom';
+
 
 
 class Tab2Comp extends Component {
@@ -42,15 +44,18 @@ const Local = (props) => {
         </tr>
       </thead>
       <tbody>
-      {
-        props.data.repos.map(e =>
-          <tr>
-            <td>{e.name}</td>
-            <td>{e.href}</td>
-            <td><span onClick={() => {console.log('delete => '+ e.name)}} className="pt-icon-standard pt-icon-delete"></span></td>
-          </tr>
-        )
-      }
+        {
+          props.data.repos.map(e =>
+
+            <tr>
+              <td><Link to={`/detail`} >{e.name}</Link></td>
+              <td>{e.href}</td>
+              <td><span onClick={() => {console.log('delete => '+ e.name)}} className="pt-icon-standard pt-icon-delete"></span></td>
+            </tr>
+
+          )
+        }
+
       </tbody>
     </table>
   </div>
