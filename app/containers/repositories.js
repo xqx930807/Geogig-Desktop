@@ -6,22 +6,21 @@ import { Tab2, Tabs2 } from "@blueprintjs/core";
 import {Link} from 'react-router-dom';
 
 import '../src/assets/css/App.css';
-import api from '../api/geogig-js';
+import api from '../services/api/geogig-js';
 
 class App extends Component {
   constructor(props){
    super(props);
-    this.state = {repos:[]};
+    this.state = {repos:{repo:[]}};
   }
-
   componentDidMount(){
     this.context.store.dispatch(api.loadLocal());
+
   }
 
   componentWillMount(){
     this.context.store.subscribe(() => {
-      let getStateREPOS = this.context.store.getState();
-      this.setState(getStateREPOS);
+      this.setState(this.context.store.getState());
     })
   }
 
@@ -30,7 +29,7 @@ class App extends Component {
       <div>
         <Grid fluid={true}>
           <Row className="show-grid"><Navbar/></Row>
-            <Row  className="show-grid"> </Row>
+            <Row  className="show-grid"></Row>
             <br></br>
               <div className="pt-card pt-elevation-2">
                 <Tabs2 id="Tabs2Example" >
@@ -59,16 +58,13 @@ const Local = (props) => {
       </thead>
       <tbody>
         {
-          props.data.repos.map(e =>
-
+          props.data.repos.repo.map(e =>
             <tr key={e.name}>
-              <td>< Link to={{
-                  pathname:`/detail/${e.name}`
-                }}>{e.name}</Link></td>
+              <td><Link to={{pathname:`/detail/${e.name}`}}>{e.name}</Link>
+              </td>
               <td>{e.href}</td>
               <td><span onClick={() => {console.log('delete => '+ e.name)}} className="pt-icon-standard pt-icon-delete"></span></td>
             </tr>
-
           )
         }
 

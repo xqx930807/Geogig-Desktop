@@ -13,7 +13,7 @@ class Navbar extends Component {
             </Link>
             <span className="pt-navbar-divider"></span>
             <Link to={`/repositories`} >
-              <button className="pt-button pt-minimal pt-icon-box">Repositories</button>
+              <button className="pt-button pt-minimal pt-icon-git-repo">Repositories</button>
             </Link>
             <Link to={`/connections`} >
               <button className="pt-button pt-minimal pt-icon-database">Connections</button>
