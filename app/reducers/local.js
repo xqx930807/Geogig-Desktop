@@ -15,5 +15,9 @@ export function loadRepos(state={}, action){
     state.tansaction = action.response.Transaction;
     return state;
   };
+  if (action.type === 'CURRENTDATA'){
+    state.currentdata = action;
+    return state;
+  }
   return state;
 }

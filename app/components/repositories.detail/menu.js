@@ -1,15 +1,15 @@
 import React from 'react'
+import DialogComp from './modal_dialog'
 
-const MenuRepositoryActions = () => (
-    <ul className="pt-menu pt-elevation-1">
-      <li className="pt-menu-header"><h6>Actions</h6></li>
-      <li><button type="button" className="pt-menu-item pt-icon-git-commit">New Commit</button></li>
-      <li><button type="button" className="pt-menu-item pt-icon-git-branch">Show Branch</button></li>
-
-      <li><button type="button" className="pt-menu-item pt-icon-exchange">Check Changes</button></li>
-      <li className="pt-menu-header"><h6>Views</h6></li>
-      <li><button type="button" className="pt-menu-item pt-icon-history">History</button></li>
-    </ul>
+const MenuRepositoryActions = (props) => (
+  <ul className="pt-menu pt-elevation-1">
+    <li className="pt-menu-header"><h6>Actions</h6></li>
+    <DialogComp repoName={props.repoName}/>
+    <li><button type="button" className="pt-menu-item pt-icon-git-branch">Show Branch</button></li>
+    <li><button type="button" className="pt-menu-item pt-icon-exchange">Check Changes</button></li>
+    <li className="pt-menu-header"><h6>Views</h6></li>
+    <li><button type="button" className="pt-menu-item pt-icon-history">History</button></li>
+  </ul>
 );
 
 const MenuRepository = () => (
