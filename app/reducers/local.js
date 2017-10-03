@@ -1,6 +1,12 @@
 export function loadRepos(state={}, action){
   if (action.type === 'LISTAGEM'){
-    state.repos = action.repos;
+    let buildLayer = {
+      repos:{
+        repo: action.repos.repo.filter(e => !e.name.includes('.remote')),
+        remote: action.repos.repo.filter(e => e.name.includes('.remote'))
+      }
+    };
+    state.repos = buildLayer.repos;
     return state;
   };
   if (action.type === 'DETAILREPO'){

@@ -14,7 +14,7 @@ class App extends Component {
   constructor(props){
    super(props);
     this.state = {
-      repos:{repo:[]}
+      repos:{repo:[],remote:[]}
     };
   }
 
@@ -28,6 +28,7 @@ class App extends Component {
   }
 
   render() {
+    // let ad = this.state.repos.repo.filter(elem => elem.name.includes('.remote') ? elem : null)
     return (
       <div>
         <Grid fluid={true}>
@@ -87,8 +88,38 @@ const Local = (props) => (
 
 const Remote = (props) => (
   <div>
-    <div className="pt-callout ">
-    </div>
+    <table className="pt-table pt-interactive">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Adress</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          props.data.repos.remote.map(e =>
+            <tr key={e.name}>
+              <td>
+                <Link to={{pathname:`/detail/${e.name}`}}
+                  onClick={
+                    () => {
+                      localStorage.setItem('repoActive', e.href);
+                      !localStorage.getItem(e.href)
+                        ? localStorage.setItem(e.href, '')
+                        : null;
+                    }
+                  }>
+                  {e.name.replace('.remote','')}
+                </Link>
+              </td>
+              <td>{e.href}</td>
+              <td><span onClick={() => {console.log('delete => '+ e.name)}} className="pt-icon-standard pt-icon-delete"></span></td>
+            </tr>
+          )
+        }
+      </tbody>
+    </table>
   </div>
 );
 

@@ -17,7 +17,6 @@ class DialogComp extends Component {
       this.setState({value: event.target.value});
     }
   render(){
-    console.log(this.state.activeLocal);
     return (
       <div>
         <li><button type="button" className="pt-menu-item pt-icon-git-commit" onClick={() =>  this.setState({ isOpen: !this.state.isOpen })}>New Commit</button></li>

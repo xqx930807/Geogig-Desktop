@@ -21,7 +21,28 @@ class Navbar extends Component {
           </div>
           <div className="pt-navbar-group pt-align-right">
               <span className="pt-navbar-divider"></span>
-            <Popover position={Position.BOTTOM_RIGHT} content={<Content />} target={<button className="pt-button pt-minimal pt-icon-cog"></button>} />
+            <Popover position={Position.BOTTOM_RIGHT} content={<Menu>
+                <MenuItem
+                    iconName="new-text-box"
+                    onClick={this.handleClick}
+                    text="New text box"
+                />
+                <MenuItem
+                    iconName="new-object"
+                    onClick={this.handleClick}
+                    text="New object"
+                />
+                <MenuItem
+                    iconName="new-link"
+                    onClick={this.handleClick}
+                    text="New link"
+                />
+                <MenuDivider />
+                  <Link to={`/config`} >
+                    <MenuItem text="Settings..." iconName="cog" />
+                  </Link>
+
+            </Menu>} target={<button className="pt-button pt-minimal pt-icon-cog"></button>} />
             <button className="pt-button pt-minimal pt-icon-cell-tower"></button>
         </div>
         </nav>
@@ -29,27 +50,6 @@ class Navbar extends Component {
     );
   }
 }
-const Content = () => (
-  <Menu>
-      <MenuItem
-          iconName="new-text-box"
-          onClick={this.handleClick}
-          text="New text box"
-      />
-      <MenuItem
-          iconName="new-object"
-          onClick={this.handleClick}
-          text="New object"
-      />
-      <MenuItem
-          iconName="new-link"
-          onClick={this.handleClick}
-          text="New link"
-      />
-      <MenuDivider />
-      <MenuItem text="Settings..." iconName="cog" />
-  </Menu>
- )
  const Spinner = () => (
    <div className="pt-spinner pt-small">
      <div className="pt-spinner-svg-container">

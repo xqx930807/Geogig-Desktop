@@ -26,7 +26,6 @@ class dashboard extends Component {
 
   componentWillMount() {
     this.context.store.subscribe(() => {
-      console.log(this.context.store.getState());
       this.setState(this.context.store.getState())
     })
   }

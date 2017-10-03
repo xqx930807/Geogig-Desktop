@@ -3,11 +3,16 @@ import geogigJS from './geogig-js/main';
 // import geogigJS from 'geogig-js';
 import { OurToaster } from "./../../components/ui/toast";
 
-let geogig = new geogigJS({bin: "C:\\geogig\\bin\\geogig.bat",cwd: "C:\\patchForRepository"});
+let config = JSON.parse(localStorage.getItem('config'))
+let geogig = new geogigJS({bin: "C:\\geogig\\bin\\geogig.bat", cwd: config.dir});
 let host = geogig.serve.connect({uri: 'http://localhost:8182'})
 
-// OurToaster.show({ message: "Toasted!" });
+host.repos.find().catch( (error) =>{
+  console.log('Iniciando o Servidor');
+  geogig.serve.init()
+})
 
+// OurToaster.show({ message: "Toasted!" });
 export default class Api {
 
   static loadLocal (){
@@ -32,30 +37,45 @@ export default class Api {
       })
     }
   }
+  static checkTaskBind(transactionId){
+    return (async (transactionId) => {
+      let check = await host.tasks.findOne({id: transactionId});
+      try {
+        return await check.tasks.task.status;
+      }
+      catch (err) {
+        console.log('fetch failed', err);
+      }
+    })()
+  }
   static beginTransaction(repoName, msg, dir){
-    let repo = host.repos.findOne({name: repoName});
+    let checkTask = (id) => this.checkTaskBind(id);
 
-    repo.then(e => e.beginTransaction())
-      .then(e => {
-        repo.then(data =>
-          data.geopackage.import({
+    (async function logFetch() {
+      let repo = await host.repos.findOne({name: repoName});
+      try {
+        let transactionID = await repo.beginTransaction;
+        let geopackageImport = await repo.geopackage.import({
             fileUpload: dir,
-            transactionId: e.response.Transaction.ID,
+            transactionId: transactionID.response.Transaction.ID,
             interchange: true,
             format: 'gpkg',
             message: msg
-          })
-          .then(log => {
-            setTimeout( () => {
-              repo.then( endE => {
-                console.log(log.task.transactionId);
-                return endE.endTransaction({transactionId: log.task.transactionId}, {cancel: false})
-              }).then(e => OurToaster.show({ message: e.response.Transaction.ID }))
-            }, 3000);
+          });
 
-          })
-        )
-      })
+          while(await checkTask(transactionID.response.Transaction.ID) !== 'FINISHED'){
+            console.log('processing');
+          }
+          repo.endTransaction({transactionId: transactionID.response.Transaction.ID}, {cancel: false})
+          .then(e =>
+            OurToaster.show({ message: 'Commit efetuado com sucesso' })
+          )
+
+      }
+      catch (err) {
+        console.log('fetch failed', err);
+      }
+    })()
   }
   static newRepository(repoName){
     geogig.repo({name: repoName}).init
@@ -63,4 +83,5 @@ export default class Api {
         OurToaster.show({ message: e });
       })
   }
+
 }
