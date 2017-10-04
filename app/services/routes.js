@@ -13,6 +13,7 @@ import {loadRepos} from './../reducers/local';
 import dashboard from './../containers/dashboard';
 import repositories from './../containers/repositories';
 import connections from './../containers/connections'
+import adc from './../components/connections/connections.detail'
 import config from './../containers/config'
 import detail from './../containers/repositories.detail';
 
@@ -28,6 +29,7 @@ export default (
             <Route path="/repositories" component={repositories} />
             <Route path="/detail/:name" component={detail} />
             <Route path="/connections" component={connections} />
+            <Route path="/remote/:name" component={adc} />
         </Switch>
      </HashRouter>
    </Provider>

@@ -10,6 +10,7 @@ class DialogComp extends Component {
         value: ''
       };
       this.handleChange = this.handleChange.bind(this);
+      this.api = new api();
     }
     handleChange(event) {
       this.setState({value: event.target.value});
@@ -30,7 +31,7 @@ class DialogComp extends Component {
           <div className="pt-dialog-footer">
             <div className="pt-dialog-footer-actions">
               <Button intent={Intent.PRIMARY}  onClick={ () => {
-                  api.newRepository(this.state.value)
+                  this.api.newRepository(this.state.value)
                 }} text="Commit"/>
             </div>
           </div>

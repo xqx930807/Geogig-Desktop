@@ -11,7 +11,7 @@ import api from '../services/api/geogig-js';
 class dashboard extends Component {
   constructor(props){
    super(props);
-     this.state = {
+    this.state = {
        details: [
          {node: []},
          {commit: []}
@@ -21,7 +21,15 @@ class dashboard extends Component {
   }
 
   componentDidMount() {
-    this.context.store.dispatch(api.detailRepo(this.props.match.params.name));
+    let uri = JSON.parse(this.props.match.params.name).type
+    if (typeof(uri) === 'undefined'){
+      const apic = new api();
+      this.context.store.dispatch(apic.detailRepo(JSON.parse(this.props.match.params.name).name));
+    }else{
+      const apic = new api('http://'+uri);
+      this.context.store.dispatch(apic.detailRepo(JSON.parse(this.props.match.params.name).name));
+    }
+
   }
 
   componentWillMount() {

@@ -58,11 +58,11 @@ const Local = (props) => (
           props.data.connected.in.map(e =>
             <tr key={e.name}>
               <td>
-                <Link to={{pathname:`/detail/${e.name}`}}>
+                <Link to={{pathname:`/remote/{"name":"${e.name}", "type": "${e.type}:8182"}`}}>
                   {e.name}
                 </Link>
               </td>
-              <td>as</td>
+              <td>{e.type}</td>
               <td><span onClick={() => {console.log('delete => '+ e.name)}} className="pt-icon-standard pt-icon-delete"></span></td>
             </tr>
           )

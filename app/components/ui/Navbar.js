@@ -2,6 +2,18 @@ import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
 import { Popover, Menu, MenuItem, Position, MenuDivider } from "@blueprintjs/core";
 
+import os from 'os'
+let interfaces = os.networkInterfaces();
+let addresses = [];
+for (var k in interfaces) {
+  for (var k2 in interfaces[k]) {
+    var address = interfaces[k][k2];
+    if (address.family === 'IPv4' && !address.internal) {
+      addresses.push(address.address+':8182');
+    }
+  }
+}
+
 class Navbar extends Component {
   render() {
     return (
@@ -21,29 +33,18 @@ class Navbar extends Component {
           </div>
           <div className="pt-navbar-group pt-align-right">
               <span className="pt-navbar-divider"></span>
+              <button className="pt-button pt-minimal pt-icon-cell-tower">{addresses[0]}</button>
             <Popover position={Position.BOTTOM_RIGHT} content={<Menu>
-                <MenuItem
-                    iconName="new-text-box"
-                    onClick={this.handleClick}
-                    text="New text box"
-                />
-                <MenuItem
-                    iconName="new-object"
-                    onClick={this.handleClick}
-                    text="New object"
-                />
-                <MenuItem
-                    iconName="new-link"
-                    onClick={this.handleClick}
-                    text="New link"
-                />
+                <MenuItem iconName="new-text-box" onClick={this.handleClick} text="New text box" />
+                <MenuItem iconName="new-object" onClick={this.handleClick} text="New object" />
+                <MenuItem iconName="new-link" onClick={this.handleClick} text="New link" />
                 <MenuDivider />
-                  <Link to={`/config`} >
-                    <MenuItem text="Settings..." iconName="cog" />
-                  </Link>
+                <Link to={`/config`} >
+                  <MenuItem text="Settings..." iconName="cog" />
+                </Link>
 
             </Menu>} target={<button className="pt-button pt-minimal pt-icon-cog"></button>} />
-            <button className="pt-button pt-minimal pt-icon-cell-tower"></button>
+
         </div>
         </nav>
       </div>

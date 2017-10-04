@@ -16,6 +16,7 @@ class App extends Component {
     this.state = {
       repos:{repo:[],remote:[]}
     };
+    this.api = new api();
   }
 
   get getState () { return this.context.store.getState() }
@@ -23,7 +24,7 @@ class App extends Component {
   set subscribe (data) { this.context.store.subscribe(data) }
 
   componentDidMount(){
-    this.dispatch = api.loadLocal();
+    this.dispatch = this.api.loadLocal();
     this.subscribe = () => this.setState(this.getState);
   }
 
@@ -64,7 +65,7 @@ const Local = (props) => (
           props.data.repos.repo.map(e =>
             <tr key={e.name}>
               <td>
-                <Link to={{pathname:`/detail/${e.name}`}}
+                <Link to={{pathname:`/detail/{"name":"${e.name}"}`}}
                   onClick={
                     () => {
                       localStorage.setItem('repoActive', e.href);
