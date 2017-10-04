@@ -34,7 +34,6 @@ class connectionsDetail extends Component {
   }
 
   render() {
-    console.log(this.state);
     return (
       <div>
         <Grid fluid={true}>
@@ -52,7 +51,10 @@ class connectionsDetail extends Component {
     );
   }
 }
-
+const  clone = (name, uri) => {
+  const apic = new api();
+  apic.cloneRepository(name, uri)
+}
 const Local = (props) => (
   <div>
     <table className="pt-table pt-interactive">
@@ -72,8 +74,8 @@ const Local = (props) => (
                   {e.name}
                 </Link>
               </td>
-              <td>{e.type}</td>
-              <td><span onClick={() => {console.log('clone => '+ e.name)}} className="pt-icon-standard pt-icon-import"></span></td>
+              <td>{e.href}</td>
+              <td><span onClick={() =>  clone(e.name + '.remote', e.href.replace('.json',''))} className="pt-icon-standard pt-icon-import"></span></td>
             </tr>
           )
         }

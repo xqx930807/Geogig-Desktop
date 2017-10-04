@@ -10,7 +10,7 @@ const url = require('url')
 let mainWindow;
 
 // Keep a reference for dev mode
-let dev = false;
+let dev = true;
 if ( process.defaultApp || /[\\/]electron-prebuilt[\\/]/.test(process.execPath) || /[\\/]electron[\\/]/.test(process.execPath) ) {
   dev = true;
 }

@@ -1,4 +1,4 @@
-const api = require ('../services/web-api');
+const api = require ('../../services/web-api');
 
 class Actions {
   constructor(repo){

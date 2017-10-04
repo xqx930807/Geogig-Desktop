@@ -1,5 +1,5 @@
 const rp = require ('request-promise');
-const Actions = require ('../models/Repo.actions');
+const Actions = require ('../models/repo/Repo.actions');
 const api = require ('./web-api');
 
 class ApiExtension  {
@@ -9,7 +9,7 @@ class ApiExtension  {
 
   get repo (){
     let find = () => {
-      return rp(this._params.uri + '/repos', {json: true}).then(data => data.repos);
+      return rp(this._params.uri  + '/repos', {json: true}).then(data => data.repos);
     };
     let findOne = (filter) => {
       return rp(this._params.uri + '/repos', {json: true})

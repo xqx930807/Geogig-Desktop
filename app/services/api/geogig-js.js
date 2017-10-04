@@ -86,7 +86,12 @@ export default class Api {
         OurToaster.show({ message: e });
       })
   }
-
+  cloneRepository(repoName, repoUri){
+    this.geogig.repo({uri: repoUri, name: repoName}).clone
+    .then(e => {
+      OurToaster.show({ message: e });
+    })
+  }
 }
 let adc = new Api();
 adc.serveInit()

@@ -1,13 +1,9 @@
-const Utils = require ('../services/Utils');
 const ApiExtension = require('../services/web-api.extension');
 
 class Tools  {
   constructor(params, config){
-    this._params = params;
-    this._config = config;
-    this._ApiExtension = new ApiExtension(params);
+    this._apiEx = new ApiExtension(params);
   }
-  get _apiEx (){return this._ApiExtension};
 
   get repos(){
     return {
@@ -21,8 +17,5 @@ class Tools  {
       findOne: (filter) => this._apiEx.tasks.findOne(filter)
     }
   }
-  get init(){
-    return Utils.initRepo(this._params, this._config);
-  };
 }
 module.exports = Tools
