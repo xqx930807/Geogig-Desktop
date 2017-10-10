@@ -1,6 +1,9 @@
 import React from 'react';
-import {HashRouter, Route, Switch} from 'react-router-dom';
-
+import {
+  BrowserRouter as Router,
+  Route,
+  Link
+} from 'react-router-dom'
 //REDUX
 import {createStore, applyMiddleware, combineReducers} from 'redux';
 import  {Provider} from 'react-redux';
@@ -10,27 +13,28 @@ import thunkMiddleware from 'redux-thunk';
 import {loadRepos} from './../reducers/local';
 
 //CONTAINERS
-import dashboard from './../containers/dashboard';
-import repositories from './../containers/repositories';
-import connections from './../containers/connections'
-import adc from './../components/connections/connections.detail'
-import config from './../containers/config'
-import detail from './../containers/repositories.detail';
+import App from '../App';
+
+
+import {Content} from './../components/Content.js'
+import {Local, Remote} from './../components/local.js'
 
 // const reducers = combineReducers({loadRepos});
 const store = createStore(loadRepos, applyMiddleware(thunkMiddleware));
+import { menuItems, farMenuItems } from '../components/items'
+import { CommandBar } from 'office-ui-fabric-react/lib/CommandBar';
+import NavBar from '../components/NavBar.js'
 
 export default (
   <Provider store={store}>
-     <HashRouter>
-       <Switch>
-          <Route exact path="/" component={dashboard} />
-            <Route path="/config" component={config} />
-            <Route path="/repositories" component={repositories} />
-            <Route path="/detail/:name" component={detail} />
-            <Route path="/connections" component={connections} />
-            <Route path="/remote/:name" component={adc} />
-        </Switch>
-     </HashRouter>
+    <Router>
+      <div>
+        <CommandBar items={ menuItems } farItems={ farMenuItems }  />
+        <br/>
+        <Route exact path='/' component={App}/>
+        <Route  path='/local' component={Local}/>
+        <Route  path='/remote' component={Remote}/>
+      </div>
+    </Router>
    </Provider>
 )

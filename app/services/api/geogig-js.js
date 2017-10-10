@@ -1,10 +1,7 @@
 import loadRepos from '../../reducers/local';
 import geogigJS from './geogig-js/main';
-// import geogigJS from 'geogig-js';
-import { OurToaster } from "./../../components/ui/toast";
 
-// OurToaster.show({ message: "Toasted!" });
-export default class Api {
+class Api {
   constructor(serveAdress = 'http://localhost:8182'){
     this.config = JSON.parse(localStorage.getItem('config'));
     this.geogig = new geogigJS({bin: "C:\\geogig\\bin\\geogig.bat", cwd: this.config.dir});
@@ -70,8 +67,9 @@ export default class Api {
             console.log('processing');
           }
           repo.endTransaction({transactionId: transactionID.response.Transaction.ID}, {cancel: false})
-          .then(e =>
-            OurToaster.show({ message: 'Commit efetuado com sucesso' })
+          .then(e =>{
+            // OurToaster.show({ message: 'Commit efetuado com sucesso' })
+          }
           )
 
       }
@@ -83,15 +81,14 @@ export default class Api {
   newRepository(repoName){
     this.geogig.repo({name: repoName}).init
       .then(e => {
-        OurToaster.show({ message: e });
+        // OurToaster.show({ message: e });
       })
   }
   cloneRepository(repoName, repoUri){
     this.geogig.repo({uri: repoUri, name: repoName}).clone
     .then(e => {
-      OurToaster.show({ message: e });
+      // OurToaster.show({ message: e });
     })
   }
 }
-let adc = new Api();
-adc.serveInit()
+export default Api
