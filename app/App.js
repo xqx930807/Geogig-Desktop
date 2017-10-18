@@ -12,7 +12,6 @@ class App extends React.Component {
   render() {
     return (
       <Fabric className="App">
-
           <div className="body">
             <div className="content">
               <Content />

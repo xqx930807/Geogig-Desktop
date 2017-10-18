@@ -8,7 +8,7 @@ class Actions {
   }
   get _params (){return {set: this.joinParams}};
 
-  get geopackage (){
+  get geopackage () {
     return {
       import: (params) => api.Import(this._params.set(params)),
       export: (params) => api.Export(this._params.set(params))
@@ -20,10 +20,10 @@ class Actions {
   get beginTransaction() {
     return api.beginTransaction(this._params.set());
   }
-  log(options){
+  log(options) {
     return api.Log(this.joinParams(), options).then(result => result.response);
   }
-  export(params, options){
+  export(params, options) {
     return api.Export(this._params.set(params));
   }
   endTransaction(params, options) {

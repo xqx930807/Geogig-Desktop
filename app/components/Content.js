@@ -20,12 +20,13 @@ let previewPropsUsingIcon: IDocumentCardPreviewProps = {
         }
       ]
     };
-import Panel from './Panel'
+import { Panel, PanelType } from 'office-ui-fabric-react/lib/Panel';
 class Content extends Component {
   constructor(props){
    super(props);
     this.state = {
-      repos:{repo:[],remote:[]}
+      repos:{repo:[],remote:[]},
+      details: []
     };
   }
 
@@ -38,6 +39,7 @@ class Content extends Component {
     this.STORE_subscribe = () => this.setState(this.STORE_getState);
 
     this.STORE_dispatch = API.loadLocal();
+    this.STORE_dispatch = API.detailRepo('dsdasd');
   }
   render(){
     return(
@@ -49,37 +51,71 @@ class Content extends Component {
 }
 
 
-const Repository = (props) => (
-  <div>
-    <Panel/>
-    {
-      props.data.repos.repo.map(repo =>{
-        return(
-          <div key={repo.name}>
-          <DocumentCard  type={ DocumentCardType.compact }>
-            <DocumentCardPreview { ...previewPropsUsingIcon } />
-            <div className='ms-DocumentCard-details'>
-            <Link to="/remote" style={{ textDecoration: 'none', color: '#000000'  }}>
-              <DocumentCardTitle
-                title={repo.name}
-                shouldTruncate={ true }
-              />
-              <DocumentCardActivity
-                activity={repo.href}
-                people={
-                  [{ name: 'Local' }]
-                }
-              />
-            </Link>
-            </div>
-          </DocumentCard>
-          <p/>
-          </div>
-        )
-      })
-    }
-  </div>
-);
+class Repository extends Component {
+
+  constructor(props){
+    super(props);
+    this.state = {
+      showPanel: false,
+      data: null
+    };
+  }
+
+  _setShowPanel(repoName){
+    this.setState({data: repoName});
+    this.setState({showPanel: !this.state.showPanel});
+  }
+  render(){
+    return(
+      <div>
+        <Panel
+          isOpen={ this.state.showPanel }
+          onDismiss={() => console.log('quando fechar, executar...')}
+          type={ PanelType.medium }
+          headerText={this.state.data}
+        >
+          <span>
+            <table >
+            <tbody>
+              <tr>
+                <th>commit</th>
+              </tr>
+              <tr>
+                <td>Jill</td>
+              </tr>
+            </tbody>
+            </table>
+          </span>
+        </Panel>
+        {
+          this.props.data.repos.repo.map(repo =>{
+            return(
+
+              <div key={repo.name}>
+              <DocumentCard  type={ DocumentCardType.compact } onClick={() => this._setShowPanel(repo.name)}>
+                <DocumentCardPreview { ...previewPropsUsingIcon } />
+                <div className='ms-DocumentCard-details'>
+                  <DocumentCardTitle
+                    title={repo.name}
+                    shouldTruncate={ true }
+                  />
+                  <DocumentCardActivity
+                    activity={repo.href}
+                    people={
+                      [{ name: 'Local' }]
+                    }
+                  />
+                </div>
+              </DocumentCard>
+              <p/>
+              </div>
+            )
+          })
+        }
+      </div>
+    );
+  }
+}
 
 Content.contextTypes = {
   store: PropTypes.object.isRequired

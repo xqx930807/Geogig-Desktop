@@ -32,6 +32,7 @@ class Api {
             repo.log({countChanges: true})
           ])
           .then(e => {
+            console.log(e);
             dispatch ({type: 'DETAILREPO', details: e})
           })
       })
@@ -92,3 +93,12 @@ class Api {
   }
 }
 export default Api
+
+// let API = new Api()
+// API.host.repos.findOne({name: 'dsdasd'}).then(repo => {
+//
+//     Promise.all([ repo.lsTree, repo.log({countChanges: true})])
+//     .then(e => {
+//       console.log(e);
+//     })
+// })
