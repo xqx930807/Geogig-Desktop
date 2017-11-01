@@ -25,5 +25,9 @@ export function loadRepos(state={}, action){
     state.currentdata = action;
     return state;
   }
+  if(action.type == 'SHOWPANEL') {
+    state.showPanel = action.showPanel
+    return state
+  }
   return state;
 }
